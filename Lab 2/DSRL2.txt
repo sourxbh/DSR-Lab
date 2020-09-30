@@ -1,0 +1,930 @@
+> library(readr)
+> bankdata <- read_csv("bankdata.csv")
+Parsed with column specification:
+cols(
+  id = col_character(),
+  age = col_double(),
+  sex = col_character(),
+  region = col_character(),
+  income = col_double(),
+  married = col_character(),
+  children = col_double(),
+  car = col_character(),
+  save_act = col_character(),
+  current_act = col_character(),
+  mortgage = col_character(),
+  pep = col_character()
+)
+> bankdata
+# A tibble: 600 x 12
+   id        age sex    region     income married children car   save_act current_act mortgage pep  
+   <chr>   <dbl> <chr>  <chr>       <dbl> <chr>      <dbl> <chr> <chr>    <chr>       <chr>    <chr>
+ 1 ID12101    48 FEMALE INNER_CITY 17546  NO             1 NO    NO       NO          NO       YES  
+ 2 ID12102    40 MALE   TOWN       30085. YES            3 YES   NO       YES         YES      NO   
+ 3 ID12103    51 FEMALE INNER_CITY 16575. YES            0 YES   YES      YES         NO       NO   
+ 4 ID12104    23 FEMALE TOWN       20375. YES            3 NO    NO       YES         NO       NO   
+ 5 ID12105    57 FEMALE RURAL      50576. YES            0 NO    YES      NO          NO       NO   
+ 6 ID12106    57 FEMALE TOWN       37870. YES            2 NO    YES      YES         NO       YES  
+ 7 ID12107    22 MALE   RURAL       8877. NO             0 NO    NO       YES         NO       YES  
+ 8 ID12108    58 MALE   TOWN       24947. YES            0 YES   YES      YES         NO       NO   
+ 9 ID12109    37 FEMALE SUBURBAN   25304. YES            2 YES   NO       NO          NO       NO   
+10 ID12110    54 MALE   TOWN       24212. YES            2 YES   YES      YES         NO       NO   
+# ... with 590 more rows
+> dim(bankdata)
+[1] 600  12
+> ncol(bankdata)
+[1] 12
+> nrow(bankdata)
+[1] 600
+> str(bankdata)
+tibble [600 x 12] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ id         : chr [1:600] "ID12101" "ID12102" "ID12103" "ID12104" ...
+ $ age        : num [1:600] 48 40 51 23 57 57 22 58 37 54 ...
+ $ sex        : chr [1:600] "FEMALE" "MALE" "FEMALE" "FEMALE" ...
+ $ region     : chr [1:600] "INNER_CITY" "TOWN" "INNER_CITY" "TOWN" ...
+ $ income     : num [1:600] 17546 30085 16575 20375 50576 ...
+ $ married    : chr [1:600] "NO" "YES" "YES" "YES" ...
+ $ children   : num [1:600] 1 3 0 3 0 2 0 0 2 2 ...
+ $ car        : chr [1:600] "NO" "YES" "YES" "NO" ...
+ $ save_act   : chr [1:600] "NO" "NO" "YES" "NO" ...
+ $ current_act: chr [1:600] "NO" "YES" "YES" "YES" ...
+ $ mortgage   : chr [1:600] "NO" "YES" "NO" "NO" ...
+ $ pep        : chr [1:600] "YES" "NO" "NO" "NO" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   id = col_character(),
+  ..   age = col_double(),
+  ..   sex = col_character(),
+  ..   region = col_character(),
+  ..   income = col_double(),
+  ..   married = col_character(),
+  ..   children = col_double(),
+  ..   car = col_character(),
+  ..   save_act = col_character(),
+  ..   current_act = col_character(),
+  ..   mortgage = col_character(),
+  ..   pep = col_character()
+  .. )
+> summary(bankdata)
+      id                 age            sex               region              income        married         
+ Length:600         Min.   :18.00   Length:600         Length:600         Min.   : 5014   Length:600        
+ Class :character   1st Qu.:30.00   Class :character   Class :character   1st Qu.:17265   Class :character  
+ Mode  :character   Median :42.00   Mode  :character   Mode  :character   Median :24925   Mode  :character  
+                    Mean   :42.40                                         Mean   :27524                     
+                    3rd Qu.:55.25                                         3rd Qu.:36173                     
+                    Max.   :67.00                                         Max.   :63130                     
+    children         car              save_act         current_act          mortgage             pep           
+ Min.   :0.000   Length:600         Length:600         Length:600         Length:600         Length:600        
+ 1st Qu.:0.000   Class :character   Class :character   Class :character   Class :character   Class :character  
+ Median :1.000   Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :1.012                                                                                                 
+ 3rd Qu.:2.000                                                                                                 
+ Max.   :3.000                                                                                                 
+> plot(bankdata$age,bankdata$income)
+
+> getwd()
+[1] "C:/Users/Sourabh S/Documents/Labs/DSR Lab"
+> basket_delim<-read.delim("Basket.csv",sep=',')
+> basket_delim
+     Id          Items
+1     1      AntiVirus
+2     1   Game Console
+3     1 Web Publishing
+4     1   Project Mgmt
+5     2  Visual Studio
+6     2      AntiVirus
+7     2   Game Console
+8     2 Web Publishing
+9     3             OS
+10    3   Office Suite
+11    3   Game Console
+12    3 Web Publishing
+13    4             OS
+14    4   Office Suite
+15    4      AntiVirus
+16    4   Game Console
+17    4 Web Publishing
+18    4   Project Mgmt
+19    5   Office Suite
+20    5  Visual Studio
+21    5      AntiVirus
+22    5   Game Console
+23    5 Web Publishing
+24    5   Project Mgmt
+25    6             OS
+26    6   Office Suite
+27    6  Visual Studio
+28    6   Game Console
+29    6 Web Publishing
+30    6   Project Mgmt
+31    7             OS
+32    7   Office Suite
+33    7      AntiVirus
+34    7   Game Console
+35    7 Web Publishing
+36    7   Project Mgmt
+37    8             OS
+38    8   Office Suite
+39    8  Visual Studio
+40    8   Game Console
+41    8 Web Publishing
+42    8   Project Mgmt
+43    9  Visual Studio
+44    9      AntiVirus
+45    9   Game Console
+46    9 Web Publishing
+47    9   Project Mgmt
+48   10   Game Console
+49   10 Web Publishing
+50   11             OS
+51   11   Office Suite
+52   11      AntiVirus
+53   11   Game Console
+54   11 Web Publishing
+55   11   Project Mgmt
+56   12   Office Suite
+57   12 Web Publishing
+58   13             OS
+59   13   Office Suite
+60   13  Visual Studio
+61   13      AntiVirus
+62   13   Game Console
+63   13 Web Publishing
+64   13   Project Mgmt
+65   14             OS
+66   14   Office Suite
+67   14  Visual Studio
+68   14      AntiVirus
+69   14   Game Console
+70   14   Project Mgmt
+71   15   Game Console
+72   16             OS
+73   16   Office Suite
+74   16      AntiVirus
+75   16   Game Console
+76   16 Web Publishing
+77   16   Project Mgmt
+78   17      AntiVirus
+79   17 Web Publishing
+80   18             OS
+81   18   Office Suite
+82   18  Visual Studio
+83   18      AntiVirus
+84   18   Game Console
+85   18 Web Publishing
+86   18   Project Mgmt
+87   19             OS
+88   19  Visual Studio
+89   19      AntiVirus
+90   19   Game Console
+91   19   Project Mgmt
+92   20   Office Suite
+93   20  Visual Studio
+94   20      AntiVirus
+95   20   Game Console
+96   20 Web Publishing
+97   20   Project Mgmt
+98   21   Project Mgmt
+99   22             OS
+100  22   Office Suite
+101  22  Visual Studio
+102  22      AntiVirus
+103  22   Game Console
+104  22 Web Publishing
+105  22   Project Mgmt
+106  23             OS
+107  23   Office Suite
+108  23  Visual Studio
+109  23      AntiVirus
+110  23   Game Console
+111  23 Web Publishing
+112  23   Project Mgmt
+113  24   Office Suite
+114  24      AntiVirus
+115  24   Game Console
+116  24 Web Publishing
+117  25             OS
+118  25   Office Suite
+119  25  Visual Studio
+120  25      AntiVirus
+121  25   Game Console
+122  25 Web Publishing
+123  25   Project Mgmt
+124  26   Office Suite
+125  26  Visual Studio
+126  26      AntiVirus
+127  26   Game Console
+128  26 Web Publishing
+129  27             OS
+130  27   Office Suite
+131  27      AntiVirus
+132  27   Game Console
+133  27 Web Publishing
+134  27   Project Mgmt
+135  28   Office Suite
+136  28  Visual Studio
+137  28      AntiVirus
+138  28   Game Console
+139  28 Web Publishing
+140  28   Project Mgmt
+141  29   Office Suite
+142  29  Visual Studio
+143  29      AntiVirus
+144  29   Game Console
+145  29 Web Publishing
+146  29   Project Mgmt
+147  30             OS
+148  30   Office Suite
+149  30  Visual Studio
+150  30      AntiVirus
+151  30   Game Console
+152  30 Web Publishing
+153  30   Project Mgmt
+154  31   Office Suite
+155  31  Visual Studio
+156  31      AntiVirus
+157  32   Office Suite
+158  32  Visual Studio
+159  32      AntiVirus
+160  32   Game Console
+161  32 Web Publishing
+162  32   Project Mgmt
+163  33             OS
+164  33   Office Suite
+165  33      AntiVirus
+166  33   Game Console
+167  33   Project Mgmt
+168  34  Visual Studio
+169  34      AntiVirus
+170  34   Game Console
+171  34 Web Publishing
+172  35   Office Suite
+173  35  Visual Studio
+174  35   Game Console
+175  35 Web Publishing
+176  35   Project Mgmt
+177  36             OS
+178  36   Project Mgmt
+179  37             OS
+180  37   Office Suite
+181  37  Visual Studio
+182  37      AntiVirus
+183  37   Game Console
+184  37 Web Publishing
+185  37   Project Mgmt
+186  38             OS
+187  38   Office Suite
+188  38  Visual Studio
+189  38      AntiVirus
+190  38 Web Publishing
+191  38   Project Mgmt
+192  39             OS
+193  39   Office Suite
+194  39  Visual Studio
+195  39      AntiVirus
+196  39   Game Console
+197  39 Web Publishing
+198  39   Project Mgmt
+199  40   Office Suite
+200  40 Web Publishing
+201  41             OS
+202  41   Office Suite
+203  41  Visual Studio
+204  41      AntiVirus
+205  41   Game Console
+206  41 Web Publishing
+207  41   Project Mgmt
+208  42   Game Console
+209  42   Project Mgmt
+210  43             OS
+211  43   Office Suite
+212  43      AntiVirus
+213  43   Game Console
+214  43 Web Publishing
+215  44             OS
+216  44   Office Suite
+217  44      AntiVirus
+218  44 Web Publishing
+219  44   Project Mgmt
+220  45   Office Suite
+221  45   Game Console
+222  45   Project Mgmt
+223  46   Office Suite
+224  46  Visual Studio
+225  46      AntiVirus
+226  46   Game Console
+227  46 Web Publishing
+228  46   Project Mgmt
+229  47   Office Suite
+230  47  Visual Studio
+231  47      AntiVirus
+232  47   Game Console
+233  47   Project Mgmt
+234  48   Office Suite
+235  48  Visual Studio
+236  48      AntiVirus
+237  48   Game Console
+238  48   Project Mgmt
+239  49             OS
+240  49   Office Suite
+241  49  Visual Studio
+242  49      AntiVirus
+243  49   Game Console
+244  49 Web Publishing
+245  49   Project Mgmt
+246  50             OS
+247  50   Office Suite
+248  50  Visual Studio
+249  50      AntiVirus
+250  50   Game Console
+251  50 Web Publishing
+252  50   Project Mgmt
+253  51             OS
+254  51   Office Suite
+255  51      AntiVirus
+256  51 Web Publishing
+257  51   Project Mgmt
+258  52  Visual Studio
+259  52      AntiVirus
+260  53             OS
+261  53   Office Suite
+262  53  Visual Studio
+263  53      AntiVirus
+264  53   Game Console
+265  53 Web Publishing
+266  53   Project Mgmt
+267  54             OS
+268  54   Office Suite
+269  54  Visual Studio
+270  54   Project Mgmt
+271  55             OS
+272  55   Office Suite
+273  55  Visual Studio
+274  55      AntiVirus
+275  55   Game Console
+276  55 Web Publishing
+277  55   Project Mgmt
+278  56             OS
+279  56   Office Suite
+280  56  Visual Studio
+281  56   Game Console
+282  56 Web Publishing
+283  56   Project Mgmt
+284  57             OS
+285  57   Office Suite
+286  57  Visual Studio
+287  57      AntiVirus
+288  57   Game Console
+289  57 Web Publishing
+290  57   Project Mgmt
+291  58             OS
+292  58   Office Suite
+293  58  Visual Studio
+294  58   Game Console
+295  58 Web Publishing
+296  58   Project Mgmt
+297  59      AntiVirus
+298  59   Game Console
+299  60             OS
+300  60   Office Suite
+301  60      AntiVirus
+302  60 Web Publishing
+303  60   Project Mgmt
+304  61             OS
+305  61   Office Suite
+306  61  Visual Studio
+307  61      AntiVirus
+308  61   Game Console
+309  61 Web Publishing
+310  61   Project Mgmt
+311  62   Office Suite
+312  62   Project Mgmt
+313  63             OS
+314  63   Office Suite
+315  63 Web Publishing
+316  64             OS
+317  64   Office Suite
+318  64  Visual Studio
+319  64      AntiVirus
+320  64 Web Publishing
+321  64   Project Mgmt
+322  65 Web Publishing
+323  66  Visual Studio
+324  66      AntiVirus
+325  66   Game Console
+326  66 Web Publishing
+327  66   Project Mgmt
+328  67             OS
+329  67   Office Suite
+330  67      AntiVirus
+331  67   Game Console
+332  67 Web Publishing
+333  67   Project Mgmt
+334  68             OS
+335  68   Office Suite
+336  68  Visual Studio
+337  68      AntiVirus
+338  68   Game Console
+339  68 Web Publishing
+340  68   Project Mgmt
+341  69             OS
+342  69   Office Suite
+343  69  Visual Studio
+344  69      AntiVirus
+345  69   Game Console
+346  69 Web Publishing
+347  69   Project Mgmt
+348  70             OS
+349  70   Office Suite
+350  70  Visual Studio
+351  70      AntiVirus
+352  70   Game Console
+353  70 Web Publishing
+354  70   Project Mgmt
+355  71   Office Suite
+356  71   Game Console
+357  72   Office Suite
+358  72  Visual Studio
+359  73             OS
+360  73   Office Suite
+361  73  Visual Studio
+362  73      AntiVirus
+363  73   Game Console
+364  73 Web Publishing
+365  73   Project Mgmt
+366  74             OS
+367  74   Office Suite
+368  74      AntiVirus
+369  74   Game Console
+370  74 Web Publishing
+371  74   Project Mgmt
+372  75             OS
+373  75  Visual Studio
+374  75      AntiVirus
+375  75   Game Console
+376  75 Web Publishing
+377  75   Project Mgmt
+378  76   Game Console
+379  77   Office Suite
+380  77  Visual Studio
+381  77      AntiVirus
+382  77   Game Console
+383  77 Web Publishing
+384  78   Office Suite
+385  78   Game Console
+386  79   Office Suite
+387  79  Visual Studio
+388  79      AntiVirus
+389  79   Game Console
+390  79 Web Publishing
+391  79   Project Mgmt
+392  80             OS
+393  80   Office Suite
+394  80  Visual Studio
+395  80      AntiVirus
+396  80   Game Console
+397  80 Web Publishing
+398  80   Project Mgmt
+399  81             OS
+400  81   Office Suite
+401  81      AntiVirus
+402  81   Game Console
+403  81 Web Publishing
+404  81   Project Mgmt
+405  82             OS
+406  82   Office Suite
+407  82  Visual Studio
+408  82      AntiVirus
+409  82   Game Console
+410  82 Web Publishing
+411  82   Project Mgmt
+412  83             OS
+413  83   Office Suite
+414  83  Visual Studio
+415  83      AntiVirus
+416  83   Game Console
+417  83 Web Publishing
+418  85             OS
+419  85   Office Suite
+420  85  Visual Studio
+421  85 Web Publishing
+422  85   Project Mgmt
+423  86   Office Suite
+424  87   Office Suite
+425  87 Web Publishing
+426  87   Project Mgmt
+427  88             OS
+428  88   Office Suite
+429  88  Visual Studio
+430  88   Game Console
+431  88 Web Publishing
+432  88   Project Mgmt
+433  89  Visual Studio
+434  89 Web Publishing
+435  89   Project Mgmt
+436  90             OS
+437  90   Office Suite
+438  90  Visual Studio
+439  90      AntiVirus
+440  90   Game Console
+441  90 Web Publishing
+442  90   Project Mgmt
+443  91 Web Publishing
+444  91   Project Mgmt
+445  92   Office Suite
+446  92      AntiVirus
+447  93   Office Suite
+448  93  Visual Studio
+449  93      AntiVirus
+450  93   Game Console
+451  93 Web Publishing
+452  93   Project Mgmt
+453  94   Office Suite
+454  94   Game Console
+455  95   Office Suite
+456  95   Project Mgmt
+457  96             OS
+458  96   Office Suite
+459  96      AntiVirus
+460  96   Game Console
+461  96 Web Publishing
+462  96   Project Mgmt
+463  97             OS
+464  97   Office Suite
+465  97      AntiVirus
+466  97   Game Console
+467  97 Web Publishing
+468  98             OS
+469  98  Visual Studio
+470  98      AntiVirus
+471  98   Game Console
+472  98 Web Publishing
+473  98   Project Mgmt
+474  99   Office Suite
+475  99      AntiVirus
+476  99   Game Console
+477  99 Web Publishing
+478  99   Project Mgmt
+479 100   Game Console
+480 101   Office Suite
+481 101   Project Mgmt
+482 102   Game Console
+483 102 Web Publishing
+484 102   Project Mgmt
+485 103   Office Suite
+486 103   Game Console
+487 104 Web Publishing
+488 105   Office Suite
+489 105  Visual Studio
+490 105   Game Console
+491 106             OS
+492 106   Office Suite
+493 106   Game Console
+494 106 Web Publishing
+495 107             OS
+496 107   Office Suite
+497 107      AntiVirus
+498 107   Game Console
+499 107 Web Publishing
+500 107   Project Mgmt
+ [ reached 'max' / getOption("max.print") -- omitted 430 rows ]
+> colnames(basket_delim)
+[1] "Id"    "Items"
+> val<-c(7,2,67,71,34,59,42,62,30,84,28,95,60,84,17,98,16,28,90,21,7,71,37,10,16,11,30,28,7,7,88,16,12,63,7,15,42,16,15,44,43,10,21,25,85,5,86,16,45,3,83,90,81,74,93,76,1,35,18,65,91,58,58,90,40,20,40,85,17,93,91,71,31,37,54,71,39,92,75,51,13,6,56,94,20,84,41,94,55,32,45,48,37,50,97,9,12,33,35,20,54,82,76,29,7,72,2,20,58,43,65,98,61,47,68,30,88,47,21,78,88,39,58,36,46,50,78,82,63,41,9,30,66,14,70,13,29,15,42,58,60,30,38,62,99,50,6,93,61,70,7,4,66,95,75,63,66,2,83,61,77,83,86,60,76,30,86,48,48,46,20,36,75,39,10,58,41,60,83,24,80,53,68,8,28,45,95,90,79,60,6,13,85,23,20,75,100,91,59,78,96,93,23,2,66,11,18,68,19,38,16,15,81,49,67,75,44,16,11,34,90,91,29,82,96,12,80,37,16,79,20,23,1,59,79,27,67,79,94,98,5,43,72,50,45,3,41,10,83,97,46,16,46,58,80,21,71,17,95,35,87,69,84,75,76,28,86,13,23,72,87,5,75,20,55,59,38,83,7,74,64,83,4,53,97,50,77,66,75,90,14,91,99,72,78,60,74,43,69,2,54,47,18,51,36,34,89,30,97,21,14,70,63,64,40,70,85,27,90,99,50,8,44,33,87,68,10,32,45,97,53,22,79,1,74,71,61,16,17,2,2,19,35,83,71,14,13,95,69,19,98,15,55,43,38,40,24,78,72,43,63,79,60,85,83,11,44,42,46,51,65,14,64,31,95,48,56,2,95,23,8,55,38,94,7,89,62,3,72,89,1,95,10,12,40,3,54,46,82,43,85,17,66,79,17,49,84,3,52,36,38,66,34,4,61,19,59,74,25,5,19,7,42,81,78,15,23,75,14,20,58,94,35,3,26,98,58,11,51,1,100,100,15,59,79,72,41,49,17,56,13,88,47,52,40,55,81,68,12,69,28,48,30,44,86,31,62,50,24,96,60,17,95,57,61,17,13,58,42,63,38,73,93,69,68,72,97,70,53,86,9,79,48,8,50,21,26,87,6,20,59,17,76,90,92,54,48,17,97,34,75,65,9,60,74,16,100,33,24,19,12,59,70,53,15,3,21,85,31,54,22,86,59,98,49,75,35,12,44,81,38,38,31,85,37,58,38,87,67,71,47,10,8,19,29,94,24,3,83,85,19,56,53,3,97,93,22,30,45,84,66,84,60,17,32,66,53,73,91,9,90,23,31,74,57,74,73,63,68,91,86,48,77,22,90,37,20,45,49,90,56,51,3,79,10,63,97,81,26,94,39,81,4,35,91,19,48,82,6,90,67,25,100,95,10,99,51,72,8,62,7,44,23,96,35,52,60,82,56,44,11,80,91,57,24,40,58,63,81,56,72,82,43,53,27,17,59,4,18,71,70,32,37,34,87,87,76,96,38,74,6,73,44,19,36,9,50,66,31,47,42,65,40,33,72,45,45,70,10,15,87,44,67,55,41,29,47,91,85,77,97,39,35,60,20,72,54,72,77,9,66,20,83,21,89,21,47,4,23,31,41,35,86,89,14,26,13,99,79,12,49,67,22,86,80,9,43,63,74,49,35,32,15,91,79,44,99,100,96,61,25,88,45,71,46,98,18,13,11,8,93,90,22,17,100,6,77,80,93,83,90,52,65,65,73,65,9,58,5,8,42,26,97,99,79,53,89,91,81,11,100,31,26,57,74,92,20,36,79,68,70,30,40,88,74,9,51,10,77,22,69,65,50,27,81,19,79,44,20,66,20,100,16,6,5,72,83,25,7,63,17,89,83,53,36,37,66,61,23,19,68,77,18,73,67,17,26,42,87,100,10,37,97,43,78,63,1,52,12,7,71,70,35,45,2,47,3,16,29,15,44,91,2,40,79,43,67,97,70,74,17,73,68,79,65,66,37,94,89,42,56,86,44,83,91,55,44,85,22,23,89,37,79,16,60,87,15,32,31,64,52,26,79,35,38,11,21,83,14,64,72,79,78,9,57,99,58,88,3,42)
+> basket<-basket_delim
+> cbind(basket,"Price"=val)
+    Id          Items Price
+1    1      AntiVirus     7
+2    1   Game Console     2
+3    1 Web Publishing    67
+4    1   Project Mgmt    71
+5    2  Visual Studio    34
+6    2      AntiVirus    59
+7    2   Game Console    42
+8    2 Web Publishing    62
+9    3             OS    30
+10   3   Office Suite    84
+11   3   Game Console    28
+12   3 Web Publishing    95
+13   4             OS    60
+14   4   Office Suite    84
+15   4      AntiVirus    17
+16   4   Game Console    98
+17   4 Web Publishing    16
+18   4   Project Mgmt    28
+19   5   Office Suite    90
+20   5  Visual Studio    21
+21   5      AntiVirus     7
+22   5   Game Console    71
+23   5 Web Publishing    37
+24   5   Project Mgmt    10
+25   6             OS    16
+26   6   Office Suite    11
+27   6  Visual Studio    30
+28   6   Game Console    28
+29   6 Web Publishing     7
+30   6   Project Mgmt     7
+31   7             OS    88
+32   7   Office Suite    16
+33   7      AntiVirus    12
+34   7   Game Console    63
+35   7 Web Publishing     7
+36   7   Project Mgmt    15
+37   8             OS    42
+38   8   Office Suite    16
+39   8  Visual Studio    15
+40   8   Game Console    44
+41   8 Web Publishing    43
+42   8   Project Mgmt    10
+43   9  Visual Studio    21
+44   9      AntiVirus    25
+45   9   Game Console    85
+46   9 Web Publishing     5
+47   9   Project Mgmt    86
+48  10   Game Console    16
+49  10 Web Publishing    45
+50  11             OS     3
+51  11   Office Suite    83
+52  11      AntiVirus    90
+53  11   Game Console    81
+54  11 Web Publishing    74
+55  11   Project Mgmt    93
+56  12   Office Suite    76
+57  12 Web Publishing     1
+58  13             OS    35
+59  13   Office Suite    18
+60  13  Visual Studio    65
+61  13      AntiVirus    91
+62  13   Game Console    58
+63  13 Web Publishing    58
+64  13   Project Mgmt    90
+65  14             OS    40
+66  14   Office Suite    20
+67  14  Visual Studio    40
+68  14      AntiVirus    85
+69  14   Game Console    17
+70  14   Project Mgmt    93
+71  15   Game Console    91
+72  16             OS    71
+73  16   Office Suite    31
+74  16      AntiVirus    37
+75  16   Game Console    54
+76  16 Web Publishing    71
+77  16   Project Mgmt    39
+78  17      AntiVirus    92
+79  17 Web Publishing    75
+80  18             OS    51
+81  18   Office Suite    13
+82  18  Visual Studio     6
+83  18      AntiVirus    56
+84  18   Game Console    94
+85  18 Web Publishing    20
+86  18   Project Mgmt    84
+87  19             OS    41
+88  19  Visual Studio    94
+89  19      AntiVirus    55
+90  19   Game Console    32
+91  19   Project Mgmt    45
+92  20   Office Suite    48
+93  20  Visual Studio    37
+94  20      AntiVirus    50
+95  20   Game Console    97
+96  20 Web Publishing     9
+97  20   Project Mgmt    12
+98  21   Project Mgmt    33
+99  22             OS    35
+100 22   Office Suite    20
+101 22  Visual Studio    54
+102 22      AntiVirus    82
+103 22   Game Console    76
+104 22 Web Publishing    29
+105 22   Project Mgmt     7
+106 23             OS    72
+107 23   Office Suite     2
+108 23  Visual Studio    20
+109 23      AntiVirus    58
+110 23   Game Console    43
+111 23 Web Publishing    65
+112 23   Project Mgmt    98
+113 24   Office Suite    61
+114 24      AntiVirus    47
+115 24   Game Console    68
+116 24 Web Publishing    30
+117 25             OS    88
+118 25   Office Suite    47
+119 25  Visual Studio    21
+120 25      AntiVirus    78
+121 25   Game Console    88
+122 25 Web Publishing    39
+123 25   Project Mgmt    58
+124 26   Office Suite    36
+125 26  Visual Studio    46
+126 26      AntiVirus    50
+127 26   Game Console    78
+128 26 Web Publishing    82
+129 27             OS    63
+130 27   Office Suite    41
+131 27      AntiVirus     9
+132 27   Game Console    30
+133 27 Web Publishing    66
+134 27   Project Mgmt    14
+135 28   Office Suite    70
+136 28  Visual Studio    13
+137 28      AntiVirus    29
+138 28   Game Console    15
+139 28 Web Publishing    42
+140 28   Project Mgmt    58
+141 29   Office Suite    60
+142 29  Visual Studio    30
+143 29      AntiVirus    38
+144 29   Game Console    62
+145 29 Web Publishing    99
+146 29   Project Mgmt    50
+147 30             OS     6
+148 30   Office Suite    93
+149 30  Visual Studio    61
+150 30      AntiVirus    70
+151 30   Game Console     7
+152 30 Web Publishing     4
+153 30   Project Mgmt    66
+154 31   Office Suite    95
+155 31  Visual Studio    75
+156 31      AntiVirus    63
+157 32   Office Suite    66
+158 32  Visual Studio     2
+159 32      AntiVirus    83
+160 32   Game Console    61
+161 32 Web Publishing    77
+162 32   Project Mgmt    83
+163 33             OS    86
+164 33   Office Suite    60
+165 33      AntiVirus    76
+166 33   Game Console    30
+167 33   Project Mgmt    86
+168 34  Visual Studio    48
+169 34      AntiVirus    48
+170 34   Game Console    46
+171 34 Web Publishing    20
+172 35   Office Suite    36
+173 35  Visual Studio    75
+174 35   Game Console    39
+175 35 Web Publishing    10
+176 35   Project Mgmt    58
+177 36             OS    41
+178 36   Project Mgmt    60
+179 37             OS    83
+180 37   Office Suite    24
+181 37  Visual Studio    80
+182 37      AntiVirus    53
+183 37   Game Console    68
+184 37 Web Publishing     8
+185 37   Project Mgmt    28
+186 38             OS    45
+187 38   Office Suite    95
+188 38  Visual Studio    90
+189 38      AntiVirus    79
+190 38 Web Publishing    60
+191 38   Project Mgmt     6
+192 39             OS    13
+193 39   Office Suite    85
+194 39  Visual Studio    23
+195 39      AntiVirus    20
+196 39   Game Console    75
+197 39 Web Publishing   100
+198 39   Project Mgmt    91
+199 40   Office Suite    59
+200 40 Web Publishing    78
+201 41             OS    96
+202 41   Office Suite    93
+203 41  Visual Studio    23
+204 41      AntiVirus     2
+205 41   Game Console    66
+206 41 Web Publishing    11
+207 41   Project Mgmt    18
+208 42   Game Console    68
+209 42   Project Mgmt    19
+210 43             OS    38
+211 43   Office Suite    16
+212 43      AntiVirus    15
+213 43   Game Console    81
+214 43 Web Publishing    49
+215 44             OS    67
+216 44   Office Suite    75
+217 44      AntiVirus    44
+218 44 Web Publishing    16
+219 44   Project Mgmt    11
+220 45   Office Suite    34
+221 45   Game Console    90
+222 45   Project Mgmt    91
+223 46   Office Suite    29
+224 46  Visual Studio    82
+225 46      AntiVirus    96
+226 46   Game Console    12
+227 46 Web Publishing    80
+228 46   Project Mgmt    37
+229 47   Office Suite    16
+230 47  Visual Studio    79
+231 47      AntiVirus    20
+232 47   Game Console    23
+233 47   Project Mgmt     1
+234 48   Office Suite    59
+235 48  Visual Studio    79
+236 48      AntiVirus    27
+237 48   Game Console    67
+238 48   Project Mgmt    79
+239 49             OS    94
+240 49   Office Suite    98
+241 49  Visual Studio     5
+242 49      AntiVirus    43
+243 49   Game Console    72
+244 49 Web Publishing    50
+245 49   Project Mgmt    45
+246 50             OS     3
+247 50   Office Suite    41
+248 50  Visual Studio    10
+249 50      AntiVirus    83
+250 50   Game Console    97
+251 50 Web Publishing    46
+252 50   Project Mgmt    16
+253 51             OS    46
+254 51   Office Suite    58
+255 51      AntiVirus    80
+256 51 Web Publishing    21
+257 51   Project Mgmt    71
+258 52  Visual Studio    17
+259 52      AntiVirus    95
+260 53             OS    35
+261 53   Office Suite    87
+262 53  Visual Studio    69
+263 53      AntiVirus    84
+264 53   Game Console    75
+265 53 Web Publishing    76
+266 53   Project Mgmt    28
+267 54             OS    86
+268 54   Office Suite    13
+269 54  Visual Studio    23
+270 54   Project Mgmt    72
+271 55             OS    87
+272 55   Office Suite     5
+273 55  Visual Studio    75
+274 55      AntiVirus    20
+275 55   Game Console    55
+276 55 Web Publishing    59
+277 55   Project Mgmt    38
+278 56             OS    83
+279 56   Office Suite     7
+280 56  Visual Studio    74
+281 56   Game Console    64
+282 56 Web Publishing    83
+283 56   Project Mgmt     4
+284 57             OS    53
+285 57   Office Suite    97
+286 57  Visual Studio    50
+287 57      AntiVirus    77
+288 57   Game Console    66
+289 57 Web Publishing    75
+290 57   Project Mgmt    90
+291 58             OS    14
+292 58   Office Suite    91
+293 58  Visual Studio    99
+294 58   Game Console    72
+295 58 Web Publishing    78
+296 58   Project Mgmt    60
+297 59      AntiVirus    74
+298 59   Game Console    43
+299 60             OS    69
+300 60   Office Suite     2
+301 60      AntiVirus    54
+302 60 Web Publishing    47
+303 60   Project Mgmt    18
+304 61             OS    51
+305 61   Office Suite    36
+306 61  Visual Studio    34
+307 61      AntiVirus    89
+308 61   Game Console    30
+309 61 Web Publishing    97
+310 61   Project Mgmt    21
+311 62   Office Suite    14
+312 62   Project Mgmt    70
+313 63             OS    63
+314 63   Office Suite    64
+315 63 Web Publishing    40
+316 64             OS    70
+317 64   Office Suite    85
+318 64  Visual Studio    27
+319 64      AntiVirus    90
+320 64 Web Publishing    99
+321 64   Project Mgmt    50
+322 65 Web Publishing     8
+323 66  Visual Studio    44
+324 66      AntiVirus    33
+325 66   Game Console    87
+326 66 Web Publishing    68
+327 66   Project Mgmt    10
+328 67             OS    32
+329 67   Office Suite    45
+330 67      AntiVirus    97
+331 67   Game Console    53
+332 67 Web Publishing    22
+333 67   Project Mgmt    79
+ [ reached 'max' / getOption("max.print") -- omitted 597 rows ]
