@@ -1,0 +1,5 @@
+churndata=read.csv("churn.csv")
+factset<-cut(churndata$EstimatedSalary, breaks=c(0,10000,100000,10000000000000), labels = c("low","med","high"))
+table(factset)
+churndata<-cbind(churndata,factset)
+write.csv(churndata,"churnout.csv")
